@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class LoanedBookServiceImpl implements LoanedBookService {
     @Autowired
-    private final LoanedBookRepository loanedBookRepository;
+    private LoanedBookRepository loanedBookRepository;
     @Override
     public List<LoanedBook> getAllLoanedBooks() {
         return this.loanedBookRepository.findAll();

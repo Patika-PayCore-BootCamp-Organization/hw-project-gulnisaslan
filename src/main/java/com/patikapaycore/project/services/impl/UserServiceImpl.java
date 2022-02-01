@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     @Autowired
-    private  final UserRepository userRepository;
+    private   UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {

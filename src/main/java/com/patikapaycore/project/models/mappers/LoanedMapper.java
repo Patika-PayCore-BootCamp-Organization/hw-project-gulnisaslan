@@ -1,2 +1,4 @@
-package com.patikapaycore.project.models.mappers;public class LoanedMapper {
+package com.patikapaycore.project.models.mappers;
+
+public class LoanedMapper {
 }

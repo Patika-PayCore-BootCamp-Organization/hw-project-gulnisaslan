@@ -13,30 +13,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping(name = "/api/booktypes")
-@RequiredArgsConstructor
 public class BookTypesController {
-    @Autowired
-    private final BookTypeService bookTypeService;
 
-    @GetMapping("/getallbooktype")
+    @Autowired
+    private  BookTypeService bookTypeService;
+
+    @GetMapping(name ="/getallbooktype")
     public List<BookType> getAllBookType(){
         return  this.bookTypeService.getAllBookType();
     }
-    @GetMapping("/{id}")
-    public BookType getByBookTypeId(@PathVariable @Min(1) Integer id){
+    @GetMapping(name ="/{id}")
+    public BookType getById(@PathVariable Integer id){
         return this.bookTypeService.getByBookId(id);
 
     }
-    @PostMapping("/create")
+    @PostMapping(name ="/create")
     public BookType addBookType(@Valid @RequestBody BookType bookType){
         return  this.bookTypeService.addBookType(bookType);
     }
-    @PutMapping("/update")
+    @PutMapping(name ="/update")
     public void updateBookType(@Valid @RequestBody BookType bookType){
        this.bookTypeService.updateBookType(bookType);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(name ="/delete/{id}")
     public boolean deleteBookType(Integer id){
         this.bookTypeService.deleteBookType(id);
         return true;

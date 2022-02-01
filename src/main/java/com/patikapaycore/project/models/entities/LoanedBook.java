@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -17,24 +18,29 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="loaned_book")
+@Table(name="loaned_books")
 public class LoanedBook implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
 
-    @NotBlank
+    @NotNull
+    @Column(name="user_id")
     private Integer userId;
 
-    @NotBlank
+    @NotNull
+    @Column(name="book_id")
     private Integer bookId;
 
-    @NotBlank
+   @NotNull
+   @Column(name="loaned_book")
     private LocalDate LoanedDate = LocalDate.now();
 
-    @NotBlank
-    private LocalDate returnDat = LocalDate.now().plusDays(30);
+   @NotNull
+   @Column(name="return_date")
+    private LocalDate returnDate = LocalDate.now().plusDays(30);
 
 
 

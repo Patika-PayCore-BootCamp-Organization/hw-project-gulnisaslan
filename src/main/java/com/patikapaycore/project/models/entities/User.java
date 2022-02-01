@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -17,29 +18,37 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="user")
+@Table(name="users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
 
+    @NotNull
+    @Column(name="first_name")
     private String firstname;
 
-    @NotBlank
+    @NotNull
+    @Column(name="surname")
     private String surname;
 
     @Email
-    @NotBlank
+    @NotNull
+    @Column(name="email")
     private String email;
 
-    @NotBlank
+    @NotNull
+    @Column(name="password")
     private String password;
 
-    @NotBlank
+    @NotNull
+    @Column(name="birth_date")
     private Date birthDate;
 
-    @NotBlank
+    @NotNull
+    @Column(name="phone_number")
     private String phoneNumber;
 
 

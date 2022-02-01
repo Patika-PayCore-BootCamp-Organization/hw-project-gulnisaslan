@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class BookTypeServiceImpl implements BookTypeService {
+
     @Autowired
-    private final BookTypeRepository bookTypeRepository;
+    private BookTypeRepository bookTypeRepository;
 
     @Override
     public List<BookType> getAllBookType() {

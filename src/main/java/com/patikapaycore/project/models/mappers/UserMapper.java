@@ -1,2 +1,4 @@
-package com.patikapaycore.project.models.mappers;public class UserMapper {
+package com.patikapaycore.project.models.mappers;
+
+public class UserMapper {
 }

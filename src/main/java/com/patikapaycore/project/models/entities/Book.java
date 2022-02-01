@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,26 +16,30 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="book")
+@Table(name="books")
 public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private  Integer id;
 
-    @NotBlank
+    @NotNull
+    @Column(name="book_type_id")
     private Integer bookTypeId;
-
-    @NotBlank
+    @NotNull
+    @Column(name = "writer_id")
     private Integer writerId;
 
-    @NotBlank
+    @NotNull
+    @Column(name="name")
     private String name;
 
-    @NotBlank
+    @NotNull
+    @Column(name = "isbn_no")
     private String isbnNo;
 
-    @NotBlank
+    @Column(name= "description")
     private  String description;
 
 //    @JsonManagedReference

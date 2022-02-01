@@ -23,10 +23,15 @@ public class Writer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
+
+    @Column(name="name")
     @NotNull(message = "Writer name cannot be null")
     private  String name;
+
     @NotNull(message = "Writer surname cannot be null")
+    @Column(name="surname")
     private String surname;
 
 //    @JsonBackReference
