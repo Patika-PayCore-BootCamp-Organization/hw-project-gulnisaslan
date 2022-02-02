@@ -1,7 +1,9 @@
 package com.patikapaycore.project.models.mappers;
 
 
+import org.mapstruct.Mapper;
 
-public class BookMapper {
+@Mapper
+public interface BookMapper {
 
 }

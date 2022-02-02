@@ -2,6 +2,8 @@ package com.patikapaycore.project.models.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="book_types")
-public class BookType implements Serializable{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class BookType{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +31,13 @@ public class BookType implements Serializable{
 
     @NotNull
     @Column(name="name")
+    @JsonProperty("typeName")
     private String typeName;
 
 
-//    @JsonBackReference
-//    @OneToMany(mappedBy = "bookType",cascade = CascadeType.MERGE)
-//    List<Book> books;
+    @JsonBackReference
+    @OneToMany(mappedBy = "bookType",cascade = CascadeType.MERGE)
+    List<Book> books;
 
 
 

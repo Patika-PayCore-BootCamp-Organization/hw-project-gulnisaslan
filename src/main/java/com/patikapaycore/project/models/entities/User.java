@@ -1,6 +1,7 @@
 package com.patikapaycore.project.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -26,22 +29,22 @@ public class User {
     @Column(name="id")
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Username can not be  null")
     @Column(name="first_name")
     private String firstname;
 
-    @NotNull
+    @NotNull(message = "user surname can not be null")
     @Column(name="surname")
     private String surname;
 
     @Email
     @NotNull
-    @Column(name="email")
+    @Column(name="email",unique = true)
     private String email;
 
     @NotNull
     @Column(name="password")
-    private String password;
+    private String password ;
 
     @NotNull
     @Column(name="birth_date")
@@ -50,6 +53,10 @@ public class User {
     @NotNull
     @Column(name="phone_number")
     private String phoneNumber;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
+    List<LoanedBook> loanedBooks;
 
 
 

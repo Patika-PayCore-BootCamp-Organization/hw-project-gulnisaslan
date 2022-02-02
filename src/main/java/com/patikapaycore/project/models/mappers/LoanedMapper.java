@@ -1,4 +1,9 @@
 package com.patikapaycore.project.models.mappers;
 
-public class LoanedMapper {
+import org.mapstruct.Mapper;
+
+@Mapper
+public interface LoanedMapper {
+
+
 }

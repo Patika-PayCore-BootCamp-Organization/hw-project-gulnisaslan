@@ -1,5 +1,6 @@
 package com.patikapaycore.project.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,12 +26,13 @@ public class Book implements Serializable {
     @Column(name = "id")
     private  Integer id;
 
-    @NotNull
-    @Column(name="book_type_id")
-    private Integer bookTypeId;
-    @NotNull
-    @Column(name = "writer_id")
-    private Integer writerId;
+    //ToDo: to was used, with Hibernate mapping in tables
+//    @NotNull
+//    @Column(name="book_type_id")
+//    private Integer bookTypeId;
+//    @NotNull
+//    @Column(name = "writer_id")
+//    private Integer writerId;
 
     @NotNull
     @Column(name="name")
@@ -42,15 +45,19 @@ public class Book implements Serializable {
     @Column(name= "description")
     private  String description;
 
-//    @JsonManagedReference
-//    @ManyToOne(cascade = CascadeType.MERGE)
-//    private BookType bookType;
-//
-//    @JsonManagedReference
-//    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name="writer_id")
-//    private Writer writer;
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "book_type_id")
+    private BookType bookType;
 
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="writer_id")
+    private Writer writer;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "book",cascade = CascadeType.MERGE)
+    List<LoanedBook> loanedBooks;
 
 }
 

@@ -1,5 +1,6 @@
 package com.patikapaycore.project.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,13 +27,14 @@ public class LoanedBook implements Serializable {
     @Column(name="id")
     private Integer id;
 
-    @NotNull
-    @Column(name="user_id")
-    private Integer userId;
-
-    @NotNull
-    @Column(name="book_id")
-    private Integer bookId;
+    //ToDo: to was used, with Hibernate mapping in tables
+//    @NotNull
+//    @Column(name="user_id")
+//    private Integer userId;
+//
+//    @NotNull
+//    @Column(name="book_id")
+//    private Integer bookId;
 
    @NotNull
    @Column(name="loaned_book")
@@ -42,7 +44,15 @@ public class LoanedBook implements Serializable {
    @Column(name="return_date")
     private LocalDate returnDate = LocalDate.now().plusDays(30);
 
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="user_id")
+    private User user;
 
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="book_id")
+    private Book book;
 
 
 }

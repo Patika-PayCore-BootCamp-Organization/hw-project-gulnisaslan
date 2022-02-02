@@ -4,10 +4,13 @@ import com.patikapaycore.project.models.entities.User;
 import com.patikapaycore.project.services.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 
@@ -19,28 +22,28 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(name = "/getAll")
+    @GetMapping(value = "/getalluser")
     public List<User> getAll(){
         return this.userService.getAllUsers();
     }
 
-    @GetMapping(name = "/{id}")
-    public User getById(@PathVariable Integer id){
+    @GetMapping(value = "/getbyuserid/{id}")
+    public User getById(@PathVariable @Min(1) @Param("{id}") Integer id){
         return this.userService.getByUserId(id);
     }
 
-    @PostMapping(name = "/create")
-    public User add(@Valid @RequestBody User user){
+    @PostMapping(value = "/createuser")
+    public User add(@Valid @RequestBody   User user){
         return this.userService.addUser(user);
     }
 
-    @PutMapping(name = "/update")
+    @PutMapping(value = "/updateuser")
     public void update(@Valid @RequestBody User user){
         this.userService.updateUser(user);
     }
 
-    @DeleteMapping(name = "/delete/{id}")
-    public boolean delete(@PathVariable  Integer id){
+    @DeleteMapping(value = "/deleteuser/{id}")
+    public boolean delete(@PathVariable @Min(1) @Param("{id}") Integer id){
         this.userService.deleteUser(id);
         return true;
     }

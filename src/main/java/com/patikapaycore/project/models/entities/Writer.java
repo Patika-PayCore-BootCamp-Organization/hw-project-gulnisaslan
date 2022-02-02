@@ -34,9 +34,9 @@ public class Writer implements Serializable {
     @Column(name="surname")
     private String surname;
 
-//    @JsonBackReference
-//    @OneToMany(mappedBy = "writer",cascade = CascadeType.MERGE)
-//    List<Book> books;
+    @JsonBackReference
+    @OneToMany(mappedBy = "writer",cascade = CascadeType.MERGE)
+    List<Book> books;
 
 
 
