@@ -1,5 +1,6 @@
 package com.patikapaycore.project.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,32 +28,34 @@ public class LoanedBook implements Serializable {
     @Column(name="id")
     private Integer id;
 
-    //ToDo: to was used, with Hibernate mapping in tables
 //    @NotNull
-//    @Column(name="user_id")
+//    @Column(name = "user_id")
 //    private Integer userId;
 //
 //    @NotNull
-//    @Column(name="book_id")
+//    @Column(name = "book_id")
 //    private Integer bookId;
 
    @NotNull
-   @Column(name="loaned_book")
-    private LocalDate LoanedDate = LocalDate.now();
+   @Column(name = "loaned_date")
+   private LocalDate loanedDate = LocalDate.now();
 
    @NotNull
-   @Column(name="return_date")
-    private LocalDate returnDate = LocalDate.now().plusDays(30);
+   @Column(name = "return_date")
+   private LocalDate returnDate = LocalDate.now().plusDays(30);
 
-    @JsonManagedReference
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="user_id")
-    private User user;
 
-    @JsonManagedReference
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="book_id")
-    private Book book;
+   @JsonManagedReference
+   @JsonIgnore
+   @ManyToOne(cascade = CascadeType.MERGE,fetch =FetchType.LAZY,targetEntity = User.class)
+   @JoinColumn(name = "user_id")
+   private User user;
 
+   @JsonManagedReference
+   @JsonIgnore
+   @ManyToOne(cascade = CascadeType.MERGE,fetch =FetchType.LAZY,targetEntity = Book.class)
+    @JoinColumn(name = "book_id")
+    private  Book book;
 
 }
+

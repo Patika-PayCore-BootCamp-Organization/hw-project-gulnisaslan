@@ -2,6 +2,8 @@ package com.patikapaycore.project.models.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +16,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="writer")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table(name="writers")
 public class Writer implements Serializable {
 
     @Id
@@ -26,17 +28,21 @@ public class Writer implements Serializable {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="name")
+
     @NotNull(message = "Writer name cannot be null")
-    private  String name;
+    @Column(name="writer_name")
+    private  String writerName;
 
     @NotNull(message = "Writer surname cannot be null")
-    @Column(name="surname")
-    private String surname;
+    @Column(name="writer_surname")
+    private String writerSurname;
 
+
+    @JsonIgnore
     @JsonBackReference
-    @OneToMany(mappedBy = "writer",cascade = CascadeType.MERGE)
-    List<Book> books;
+    @OneToMany(mappedBy = "writer")
+    private List<Book> books;
+
 
 
 

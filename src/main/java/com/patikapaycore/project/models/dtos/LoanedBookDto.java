@@ -10,7 +10,8 @@ public class LoanedBookDto {
     private String surname;
     private String email;
     private String typeName;
-    private String name;
+    private String writerName;
+    private String bookName;
     private LocalDate loanedDate;
     private LocalDate returnDate;
 }

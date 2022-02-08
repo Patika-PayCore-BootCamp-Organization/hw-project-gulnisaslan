@@ -2,6 +2,7 @@ package com.patikapaycore.project.models.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,34 +30,40 @@ public class User {
     @Column(name="id")
     private Integer id;
 
-    @NotNull(message = "Username can not be  null")
-    @Column(name="first_name")
+    @NotNull(message = "Firstname can not be  null")
+    @Column(name = "firstname")
     private String firstname;
 
-    @NotNull(message = "user surname can not be null")
+    @NotNull(message = "User surname can not be null")
     @Column(name="surname")
     private String surname;
 
+    @NotNull(message = "Username cannot be null")
+    @Column(name="username")
+    private  String username;
+
     @Email
-    @NotNull
-    @Column(name="email",unique = true)
+    @NotNull(message = "Email cannot be null.")
+    @Column(name="email")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Password cannot be null.")
     @Column(name="password")
     private String password ;
 
-    @NotNull
+    @NotNull(message = "Birth Date cannot be null. ")
     @Column(name="birth_date")
     private Date birthDate;
 
-    @NotNull
+    @NotNull(message="Phone number cannot be null.")
     @Column(name="phone_number")
     private String phoneNumber;
 
+
+    @JsonIgnore
     @JsonBackReference
-    @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
-    List<LoanedBook> loanedBooks;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    private  List<LoanedBook> loanedBooks;
 
 
 

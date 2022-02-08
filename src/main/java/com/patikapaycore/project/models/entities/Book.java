@@ -1,17 +1,18 @@
 package com.patikapaycore.project.models.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="books")
+
 public class Book implements Serializable {
 
     @Id
@@ -26,38 +28,43 @@ public class Book implements Serializable {
     @Column(name = "id")
     private  Integer id;
 
-    //ToDo: to was used, with Hibernate mapping in tables
 //    @NotNull
-//    @Column(name="book_type_id")
+//    @Column(name = "book_type_id")
 //    private Integer bookTypeId;
+//
 //    @NotNull
 //    @Column(name = "writer_id")
 //    private Integer writerId;
 
-    @NotNull
-    @Column(name="name")
-    private String name;
+    @NotNull(message="Book name cannot be null.")
+    @Column(name = "book_name")
+    private String bookName;
+
 
     @NotNull
     @Column(name = "isbn_no")
     private String isbnNo;
 
-    @Column(name= "description")
-    private  String description;
+    @Column(name = "book_description")
+    private  String bookDescription;
 
+    @JsonIgnore
     @JsonManagedReference
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "book_type_id")
+    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, targetEntity = BookType.class)
+    @JoinColumn(name = "book_type_id",referencedColumnName = "id")
     private BookType bookType;
 
+    @JsonIgnore
     @JsonManagedReference
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="writer_id")
+    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, targetEntity = Writer.class)
+    @JoinColumn(name = "writer_id",referencedColumnName = "id")
     private Writer writer;
 
+    @JsonIgnore
     @JsonBackReference
-    @OneToMany(mappedBy = "book",cascade = CascadeType.MERGE)
-    List<LoanedBook> loanedBooks;
+    @OneToMany(mappedBy = "book",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    private List<LoanedBook> loanedBooks;
+
 
 }
 
