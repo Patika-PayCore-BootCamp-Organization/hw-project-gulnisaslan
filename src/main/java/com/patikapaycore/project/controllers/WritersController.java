@@ -13,13 +13,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Validated
 @RestController
-@RequestMapping(name = "/api/writers")
+@RequestMapping( "/api/writers")
 public class WritersController {
 
-    @Autowired
-    private WriterService writerService;
+
+    private final WriterService writerService;
 
 
     @GetMapping(value ="getallwriter")
@@ -32,12 +33,12 @@ public class WritersController {
         return  this.writerService.getByWriterId(id);
     }
 
-    @PostMapping(value ="/createwriter")
+    @PostMapping(value ="/createwriter",consumes ={"application/json"})
     public Writer addWriter(@Valid @RequestBody Writer writer){
       return  this.writerService.addWriter(writer);
     }
 
-    @PutMapping(value ="/updatewriter")
+    @PutMapping(value ="/updatewriter",consumes ={"application/json"})
     public void updateWriter(@Valid @RequestBody Writer writer){
         this.writerService.updateWriter(writer);
     }

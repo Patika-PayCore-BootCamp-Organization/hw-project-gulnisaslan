@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class WriterServiceImpl implements WriterService {
 
-    @Autowired
-    private WriterRepository writerRepository;
+    private final WriterRepository writerRepository;
 
     @Override
     public List<Writer> getAllWriter() {

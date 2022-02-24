@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoanedBookRepository extends JpaRepository<LoanedBook,Integer> {
+    LoanedBook getByUser_Username(String username);
+    LoanedBook getByBook_BookName(String bookName);
+
+
 }

@@ -15,5 +15,7 @@ public interface BookTypeService {
     void updateBookType(BookType bookType);
 
     boolean deleteBookType(Integer id);
+
 }
+
 

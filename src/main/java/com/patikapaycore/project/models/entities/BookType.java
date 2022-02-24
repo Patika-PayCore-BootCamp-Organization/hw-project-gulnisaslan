@@ -31,7 +31,6 @@ public class BookType implements  Serializable{
 
 
     @JsonIgnore
-    @JsonBackReference
     @OneToMany(mappedBy = "bookType" )
     private List<Book> books;
 

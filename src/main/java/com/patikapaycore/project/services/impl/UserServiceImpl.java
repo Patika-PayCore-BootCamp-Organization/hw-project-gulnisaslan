@@ -1,19 +1,22 @@
 package com.patikapaycore.project.services.impl;
 
+import com.patikapaycore.project.models.dtos.UserDto;
 import com.patikapaycore.project.models.entities.User;
 import com.patikapaycore.project.repositories.UserRepository;
 import com.patikapaycore.project.services.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private   UserRepository userRepository;
+
+    private final  UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {
@@ -27,20 +30,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+
         return this.userRepository.save(user);
     }
 
     @Override
     public void updateUser(User user) {
         this.userRepository.save(user);
-
     }
 
     @Override
     public boolean deleteUser(Integer id) {
         User byId = this.userRepository.getById(id);
         this.userRepository.delete(byId);
-
         return true;
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+
+        return this.userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        this.userRepository.deleteByUsername(username);
+
+    }
+
+
 }

@@ -45,13 +45,12 @@ public class LoanedBook implements Serializable {
    private LocalDate returnDate = LocalDate.now().plusDays(30);
 
 
-   @JsonManagedReference
+
    @JsonIgnore
    @ManyToOne(cascade = CascadeType.MERGE,fetch =FetchType.LAZY,targetEntity = User.class)
    @JoinColumn(name = "user_id")
    private User user;
 
-   @JsonManagedReference
    @JsonIgnore
    @ManyToOne(cascade = CascadeType.MERGE,fetch =FetchType.LAZY,targetEntity = Book.class)
     @JoinColumn(name = "book_id")

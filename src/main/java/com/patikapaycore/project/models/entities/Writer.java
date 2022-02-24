@@ -39,7 +39,6 @@ public class Writer implements Serializable {
 
 
     @JsonIgnore
-    @JsonBackReference
     @OneToMany(mappedBy = "writer")
     private List<Book> books;
 

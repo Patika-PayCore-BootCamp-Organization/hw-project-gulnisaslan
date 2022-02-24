@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    private  BookRepository bookRepository;
+    private  final BookRepository bookRepository;
 
     @Override
     public List<Book> getAllBooks() {
@@ -38,6 +37,7 @@ public class BookServiceImpl implements BookService {
         this.bookRepository.save(book);
 
     }
+
 
     @Override
     public boolean deleteBook(Integer id) {

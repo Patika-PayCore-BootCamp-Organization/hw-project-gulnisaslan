@@ -3,8 +3,10 @@ package com.patikapaycore.project.controllers;
 import com.patikapaycore.project.models.entities.LoanedBook;
 import com.patikapaycore.project.services.abstracts.LoanedBookService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -12,13 +14,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
-
+@Validated
 @RestController
-@RequestMapping(name = "/api/loanedbooks")
+@RequiredArgsConstructor
+@RequestMapping("/api/loanedbooks")
 public class LoanedBooksController {
 
-    @Autowired
-    private LoanedBookService loanedBookService;
+
+    private final LoanedBookService loanedBookService;
 
     @GetMapping(value ="/getallloanedbook")
     public List<LoanedBook> getAllLoanedBooks(){
@@ -31,12 +34,12 @@ public class LoanedBooksController {
         return this.loanedBookService.getByLoanedBookId(id);
     }
 
-    @PostMapping(value ="/createloanedbook")
+    @PostMapping(value ="/createloanedbook",consumes ={"application/json"})
     public LoanedBook addLonedBook(@Valid @RequestBody LoanedBook loanedBook){
         return this.loanedBookService.addLoanedBook(loanedBook);
     }
 
-    @PutMapping(value ="/updateloanedbook")
+    @PutMapping(value ="/updateloanedbook",consumes ={"application/json"})
     public void updateLoanedBook(@Valid @RequestBody LoanedBook loanedBook){
         this.loanedBookService.updateLoanedBook(loanedBook);
     }

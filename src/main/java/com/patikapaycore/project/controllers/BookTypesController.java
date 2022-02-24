@@ -6,6 +6,7 @@ import com.patikapaycore.project.services.abstracts.BookTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -13,12 +14,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
+@Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping( "/api/booktypes")
 public class BookTypesController {
 
-    @Autowired
-    private  BookTypeService bookTypeService;
+    private final BookTypeService bookTypeService;
 
     @GetMapping(value ="/getallbooktype")
     public List<BookType> getAllBookType(){
@@ -30,7 +32,7 @@ public class BookTypesController {
 
     }
 
-    @PostMapping(value ="/createbooktype",consumes = {"application/json"})
+    @PostMapping(value ="/createbooktype")
     public BookType addBookType(@Valid @RequestBody  BookType bookType){
         return  this.bookTypeService.addBookType(bookType);
     }

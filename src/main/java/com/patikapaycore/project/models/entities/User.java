@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -52,6 +53,7 @@ public class User {
     private String password ;
 
     @NotNull(message = "Birth Date cannot be null. ")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name="birth_date")
     private Date birthDate;
 
@@ -61,11 +63,14 @@ public class User {
 
 
     @JsonIgnore
-    @JsonBackReference
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     private  List<LoanedBook> loanedBooks;
 
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = {
+            @JoinColumn(name = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "role_id")})
+    public List<Role> roles;
 
 
 }

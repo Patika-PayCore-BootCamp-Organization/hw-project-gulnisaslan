@@ -61,7 +61,6 @@ public class Book implements Serializable {
     private Writer writer;
 
     @JsonIgnore
-    @JsonBackReference
     @OneToMany(mappedBy = "book",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     private List<LoanedBook> loanedBooks;
 

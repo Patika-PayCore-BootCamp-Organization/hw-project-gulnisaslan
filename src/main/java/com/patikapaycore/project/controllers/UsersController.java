@@ -1,43 +1,47 @@
 package com.patikapaycore.project.controllers;
 
+import com.patikapaycore.project.models.dtos.UserDto;
 import com.patikapaycore.project.models.entities.User;
+import com.patikapaycore.project.models.mappers.UserMapper;
 import com.patikapaycore.project.services.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Validated
 @RestController
-@RequestMapping(name = "/api/users")
+@RequiredArgsConstructor
+@RequestMapping( "/api/users")
 public class UsersController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private UserMapper USER_MAPPER= Mappers.getMapper(UserMapper.class);
 
     @GetMapping(value = "/getalluser")
-    public List<User> getAll(){
-        return this.userService.getAllUsers();
+    public List<UserDto> getAll(){
+        List<User> allUsers = this.userService.getAllUsers();
+        return allUsers.stream().map(USER_MAPPER::entityToDto).collect(Collectors.toList());
     }
-
+//return allPassengers.stream().map(PASSENGER_MAPPER::toDto).collect(Collectors.toList());
     @GetMapping(value = "/getbyuserid/{id}")
     public User getById(@PathVariable @Min(1) @Param("{id}") Integer id){
         return this.userService.getByUserId(id);
     }
 
-    @PostMapping(value = "/createuser")
-    public User add(@Valid @RequestBody   User user){
-        return this.userService.addUser(user);
+    @PostMapping(value = "/createuser",consumes ={"application/json"})
+    public User add(@Valid @RequestBody   UserDto user){
+        return this.userService.addUser(USER_MAPPER.modelToEntity(user));
     }
 
-    @PutMapping(value = "/updateuser")
+    @PutMapping(value = "/updateuser",consumes ={"application/json"})
     public void update(@Valid @RequestBody User user){
         this.userService.updateUser(user);
     }

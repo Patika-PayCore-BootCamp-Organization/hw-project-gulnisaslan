@@ -1,6 +1,8 @@
 package com.patikapaycore.project.services.abstracts;
 
+import com.patikapaycore.project.models.dtos.UserDto;
 import com.patikapaycore.project.models.entities.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -15,5 +17,12 @@ public interface UserService {
         void updateUser(User user);
 
         boolean deleteUser(Integer id);
+
+        User findByUsername(String username);
+
+        boolean existsByUsername(String username);
+
+        void deleteByUsername(String username);
+
 
 }
