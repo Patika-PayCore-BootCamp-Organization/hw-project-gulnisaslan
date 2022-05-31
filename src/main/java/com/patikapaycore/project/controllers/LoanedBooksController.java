@@ -16,12 +16,16 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/loanedbooks")
 public class LoanedBooksController {
 
 
     private final LoanedBookService loanedBookService;
+
+    @Autowired
+    public LoanedBooksController(LoanedBookService loanedBookService) {
+        this.loanedBookService = loanedBookService;
+    }
 
     @GetMapping(value ="/getallloanedbook")
     public List<LoanedBook> getAllLoanedBooks(){
@@ -35,8 +39,8 @@ public class LoanedBooksController {
     }
 
     @PostMapping(value ="/createloanedbook",consumes ={"application/json"})
-    public LoanedBook addLonedBook(@Valid @RequestBody LoanedBook loanedBook){
-        return this.loanedBookService.addLoanedBook(loanedBook);
+    public LoanedBook addLonedBook(@Valid @RequestBody int bookId,int userId){
+        return this.loanedBookService.addLoanedBook(bookId,userId);
     }
 
     @PutMapping(value ="/updateloanedbook",consumes ={"application/json"})

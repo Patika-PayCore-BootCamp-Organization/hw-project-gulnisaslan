@@ -1,17 +1,19 @@
 package com.patikapaycore.project.services.abstracts;
 
+import com.patikapaycore.project.models.dtos.request.BookRequestDto;
+import com.patikapaycore.project.models.dtos.response.BookResponseDto;
 import com.patikapaycore.project.models.entities.Book;
 
 import java.util.List;
 
 public interface BookService {
-    List<Book> getAllBooks();
+    List<BookResponseDto> getAllBooks();
 
-    Book getByBookId(Integer id);
+    BookResponseDto getByBookId(Integer id);
 
-    Book addBook(Book book);
+    BookResponseDto addBook(BookRequestDto bookRequestDto);
 
-    void updateBook(Book book);
+    void updateBook(BookRequestDto bookRequestDto);
 
     boolean deleteBook(Integer id);
 

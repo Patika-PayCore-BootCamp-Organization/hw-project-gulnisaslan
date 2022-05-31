@@ -1,5 +1,6 @@
 package com.patikapaycore.project.controllers;
 
+import com.patikapaycore.project.models.dtos.request.BookTypeRequestDto;
 import com.patikapaycore.project.models.entities.Book;
 import com.patikapaycore.project.models.entities.BookType;
 import com.patikapaycore.project.services.abstracts.BookTypeService;
@@ -16,11 +17,11 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequiredArgsConstructor
 @RequestMapping( "/api/booktypes")
 public class BookTypesController {
 
-    private final BookTypeService bookTypeService;
+    @Autowired
+    private  BookTypeService bookTypeService;
 
     @GetMapping(value ="/getallbooktype")
     public List<BookType> getAllBookType(){
@@ -33,7 +34,7 @@ public class BookTypesController {
     }
 
     @PostMapping(value ="/createbooktype")
-    public BookType addBookType(@Valid @RequestBody  BookType bookType){
+    public BookType addBookType(@Valid @RequestBody BookTypeRequestDto bookType){
         return  this.bookTypeService.addBookType(bookType);
     }
     @PutMapping(value ="/updatebooktype")

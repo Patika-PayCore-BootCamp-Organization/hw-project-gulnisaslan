@@ -1,4 +1,4 @@
-package com.patikapaycore.project.repositories;
+package com.patikapaycore.project.controllers.repositories;
 
 
 import com.patikapaycore.project.models.entities.Book;

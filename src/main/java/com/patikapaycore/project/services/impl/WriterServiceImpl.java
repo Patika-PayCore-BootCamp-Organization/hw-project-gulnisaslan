@@ -1,19 +1,20 @@
 package com.patikapaycore.project.services.impl;
 
 import com.patikapaycore.project.models.entities.Writer;
-import com.patikapaycore.project.repositories.WriterRepository;
+import com.patikapaycore.project.controllers.repositories.WriterRepository;
 import com.patikapaycore.project.services.abstracts.WriterService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class WriterServiceImpl implements WriterService {
 
     private final WriterRepository writerRepository;
+
+    public WriterServiceImpl(WriterRepository writerRepository) {
+        this.writerRepository = writerRepository;
+    }
 
     @Override
     public List<Writer> getAllWriter() {

@@ -4,10 +4,7 @@ package com.patikapaycore.project.models.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,10 +15,10 @@ import java.util.List;
 @Entity
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 @Table(name="writers")
-public class Writer implements Serializable {
+public class Writer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

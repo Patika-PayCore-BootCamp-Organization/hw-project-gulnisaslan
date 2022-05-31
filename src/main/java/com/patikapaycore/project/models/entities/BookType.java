@@ -14,11 +14,10 @@ import java.util.List;
 
 @Entity
 @Data
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="book_types")
-public class BookType implements  Serializable{
+public class BookType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,10 +4,8 @@ package com.patikapaycore.project.models.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,13 +16,12 @@ import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name="books")
-
-public class Book implements Serializable {
+public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "id")
     private  Integer id;
 
@@ -49,13 +46,11 @@ public class Book implements Serializable {
     private  String bookDescription;
 
     @JsonIgnore
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, targetEntity = BookType.class)
     @JoinColumn(name = "book_type_id",referencedColumnName = "id")
     private BookType bookType;
 
     @JsonIgnore
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, targetEntity = Writer.class)
     @JoinColumn(name = "writer_id",referencedColumnName = "id")
     private Writer writer;

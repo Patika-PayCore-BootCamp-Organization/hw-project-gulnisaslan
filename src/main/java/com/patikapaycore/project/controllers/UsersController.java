@@ -1,11 +1,9 @@
 package com.patikapaycore.project.controllers;
 
-import com.patikapaycore.project.models.dtos.UserDto;
 import com.patikapaycore.project.models.entities.User;
-import com.patikapaycore.project.models.mappers.UserMapper;
 import com.patikapaycore.project.services.abstracts.UserService;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +16,22 @@ import java.util.stream.Collectors;
 
 @Validated
 @RestController
-@RequiredArgsConstructor
+
 @RequestMapping( "/api/users")
 public class UsersController {
-
     private final UserService userService;
-    private UserMapper USER_MAPPER= Mappers.getMapper(UserMapper.class);
+
+
+    @Autowired
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping(value = "/getalluser")
-    public List<UserDto> getAll(){
-        List<User> allUsers = this.userService.getAllUsers();
-        return allUsers.stream().map(USER_MAPPER::entityToDto).collect(Collectors.toList());
+    public List<User> getAll(){
+        return this.userService.getAllUsers();
+
     }
 //return allPassengers.stream().map(PASSENGER_MAPPER::toDto).collect(Collectors.toList());
     @GetMapping(value = "/getbyuserid/{id}")
@@ -37,8 +40,8 @@ public class UsersController {
     }
 
     @PostMapping(value = "/createuser",consumes ={"application/json"})
-    public User add(@Valid @RequestBody   UserDto user){
-        return this.userService.addUser(USER_MAPPER.modelToEntity(user));
+    public User add(@Valid @RequestBody   User user){
+        return this.userService.addUser(user);
     }
 
     @PutMapping(value = "/updateuser",consumes ={"application/json"})

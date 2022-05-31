@@ -50,7 +50,8 @@ public class User {
 
     @NotNull(message = "Password cannot be null.")
     @Column(name="password")
-    private String password ;
+    private String password  ;
+
 
     @NotNull(message = "Birth Date cannot be null. ")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -66,11 +67,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     private  List<LoanedBook> loanedBooks;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_roles", joinColumns = {
-            @JoinColumn(name = "user_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "role_id")})
-    public List<Role> roles;
+
 
 
 }
