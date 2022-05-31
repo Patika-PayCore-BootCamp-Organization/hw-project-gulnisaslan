@@ -1,5 +1,6 @@
 package com.patikapaycore.project.services.abstracts;
 
+import com.patikapaycore.project.models.dtos.request.BookTypeRequestDto;
 import com.patikapaycore.project.models.entities.BookType;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface BookTypeService {
 
     BookType getByBookId(Integer id);
 
-    BookType addBookType(BookType bookType);
+    BookType addBookType(BookTypeRequestDto bookTypeRequestDto);
 
     void updateBookType(BookType bookType);
 

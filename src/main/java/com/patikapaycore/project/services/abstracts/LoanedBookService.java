@@ -10,7 +10,7 @@ public interface LoanedBookService {
 
    LoanedBook getByLoanedBookId(Integer id);
 
-   LoanedBook addLoanedBook(LoanedBook loanedBook);
+   LoanedBook addLoanedBook(Integer userId,Integer bookId);
 
    void updateLoanedBook(LoanedBook loanedBook);
 

@@ -1,8 +1,6 @@
 package com.patikapaycore.project.services.abstracts;
 
-import com.patikapaycore.project.models.dtos.UserDto;
 import com.patikapaycore.project.models.entities.User;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
